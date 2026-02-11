@@ -1,0 +1,31 @@
+Hướng dẫn kết nối FT232RL với STM32F411CEU6
+Sơ đồ kết nối:
+Chi tiết từng chân:
+FT232RL Pin	Kết nối đến	STM32 Pin	Mô tả
+GND	<-->	GND	Chung mass (BẮT BUỘC)
+TXD	<-->	PA10	FT232 TX → STM32 RX2
+RXD	<-->	PA9	FT232 RX ← STM32 TX2
+VCC	<-->	3.3V	Nguồn 3.3V (nếu cần)
+⚠️ Lưu ý quan trọng:
+Jumper điện áp trên FT232RL:
+
+Đảm bảo FT232RL hoạt động ở chế độ 3.3V (không phải 5V)
+Thường có jumper hoặc chân VCCIO để chọn mức điện áp
+Chéo chân TX-RX:
+
+TX của FT232 → RX của STM32
+RX của FT232 ← TX của STM32
+Chung mass (GND):
+
+Bắt buộc phải nối GND chung giữa 2 board
+Nguồn:
+
+Nếu STM32 đã có nguồn riêng → Chỉ cần nối GND, TX, RX
+Nếu cấp nguồn từ FT232 → Nối thêm VCC (3.3V)
+Sau khi kết nối:
+Cắm FT232RL vào USB
+Kiểm tra Device Manager (Windows):
+Tìm "Ports (COM & LPT)"
+Ghi nhớ cổng COM (VD: COM3, COM5...)
+
+python flash_upload.py -p COM3 -f animations.bin -a 0x00000000
